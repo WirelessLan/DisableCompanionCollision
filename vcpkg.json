@@ -1,0 +1,12 @@
+{
+  "name": "disablecompanioncollision",
+  "version-string": "1.0.0",
+  "license": "MIT",
+  "dependencies": [
+    "boost-stl-interfaces",
+    "fmt",
+    "mmio",
+    "spdlog",
+    "xbyak"
+  ]
+}
