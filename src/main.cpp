@@ -54,14 +54,26 @@ extern "C" DLLEXPORT bool F4SEAPI F4SEPlugin_Query(const F4SE::QueryInterface * 
 
 extern "C" DLLEXPORT bool F4SEAPI F4SEPlugin_Load(const F4SE::LoadInterface * a_f4se) {
 	F4SE::Init(a_f4se);
-	F4SE::AllocTrampoline(1 << 10u);
+	F4SE::AllocTrampoline(1llu << 10u);
 
 	Configs::ReadINI();
 	Hooks::Install();
 
+	const F4SE::MessagingInterface* messaging = F4SE::GetMessagingInterface();
+	if (messaging) {
+		messaging->RegisterListener([](F4SE::MessagingInterface::Message* a_msg) {
+			switch (a_msg->type) {
+			case F4SE::MessagingInterface::kGameDataReady:
+				Configs::ReadKeywords();
+				break;
+			}
+		});
+	}
+
 	const F4SE::ScaleformInterface* scaleform = F4SE::GetScaleformInterface();
-	if (scaleform)
+	if (scaleform) {
 		scaleform->Register(Version::PROJECT, RegisterScaleforms);
+	}
 
 	return true;
 }

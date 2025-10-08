@@ -6,15 +6,22 @@ namespace Scaleforms {
 	class SetOptionHandler : public RE::Scaleform::GFx::FunctionHandler {
 	public:
 		virtual void Call(const Params& a_params) override {
-			if (a_params.argCount != 2 || a_params.args[0].GetType() != RE::Scaleform::GFx::Value::ValueType::kString)
+			if (a_params.argCount != 2 || a_params.args[0].GetType() != RE::Scaleform::GFx::Value::ValueType::kString) {
 				return;
+			}
 
-			if (strcmp(a_params.args[0].GetString(), "bEnabled") == 0)
+			if (strcmp(a_params.args[0].GetString(), "bEnabled") == 0) {
 				Configs::g_enabled = a_params.args[1].GetBoolean();
-			else if (strcmp(a_params.args[0].GetString(), "bIsActiveOnlyIfPlayerWeaponDrawn") == 0)
+			}
+			else if (strcmp(a_params.args[0].GetString(), "bIsActiveOnlyIfPlayerWeaponDrawn") == 0) {
 				Configs::g_isActiveOnlyIfPlayerWeaponDrawn = a_params.args[1].GetBoolean();
-			else if (strcmp(a_params.args[0].GetString(), "bIsActiveOnlyIfPlayerInCombat") == 0)
+			}
+			else if (strcmp(a_params.args[0].GetString(), "bIsActiveOnlyIfPlayerInCombat") == 0) {
 				Configs::g_isActiveOnlyIfPlayerInCombat = a_params.args[1].GetBoolean();
+			}
+			else if (strcmp(a_params.args[0].GetString(), "bUseKeywords") == 0) {
+				Configs::g_useKeywords = a_params.args[1].GetBoolean();
+			}
 		}
 	};
 
